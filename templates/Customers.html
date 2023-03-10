@@ -10,8 +10,77 @@
 <body>
 
 {% block content %}
+	<br>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md">
+				<div class="card card-body" style="height: 180px">
+					<div class="card-body">
+						<h5 class="card-title">Customer</h5>
+						<hr/>
+						<div class="row my-1">
+							<button class="btn btn-outline-info btn-sm " href="" style="">Update Customer</button>
+						</div>
+						<div class="row my-1">
+							<button class="btn btn-outline-danger btn-sm " href="">Delete Customer</button>
+						</div>
+					</div>
 
-	<h1>Customers</h1>
+				</div>
+			</div>
+			<div class="col-md">
+				<div class="card card-body" style="height: 180px">
+					<div class="card-body">
+						<h5 class="card-title">Contact Information</h5>
+						<hr/>
+						<p class="card-text">Email : </p>
+						<p class="card-text">Phone : </p>
+					</div>
+
+				</div>
+			</div>
+			<div class="col-md">
+				<div class="card card-body" style="height: 180px">
+					<div class="card-body">
+						<h5 class="card-title">Total Orders</h5>
+						<hr/>
+						<p class="card-text">Email : </p>
+						<p class="card-text">Phone : </p>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<br/>
+		<div class="row">
+			<div class="col-md">
+				<div class="card card-body">
+					<form method="GET">
+						<button class="btn btn-success " type="submit">Search</button>
+					</form>
+				</div>
+			</div>
+
+
+		</div><br>
+		<div class="row">
+			<div class="col-md">
+				<div class="card card-body">
+					<table class="table table-sm">
+						<tr>
+							<th></th>
+							<th>Product</th>
+							<th>Category</th>
+							<th>Date Ordered</th>
+							<th>Status</th>
+							<th>Update</th>
+							<th>Remove</th>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 
