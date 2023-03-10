@@ -6,39 +6,15 @@
 	<title>Title</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-	<style>
-
-        .navbar a {
-            font-family: 'Source Sans Pro', sans-serif;
-            font-size: 18px;
-        }
-
-        /* Navbar links on mouse-over */
-        .navbar a:hover {
-            background-color: darkblue;
-        }
-
-        /* Current/active navbar link */
-        .active {
-            background-color: black;
-        }
-
-        /* Add responsiveness - will automatically display the navbar vertically instead of horizontally on screens less than 500 pixels */
-        @media screen and (max-width: 500px) {
-            .navbar a {
-                float: none;
-                display: block;
-            }
-        }
-	</style>
-
+	<link rel="stylesheet" type="text/css" href="{% static "styles/main.css" %}">
 </head>
 <body>
 
 {% block content %}
 	<nav class="navbar navbar-expand-lg navbar-dark bg-black text-light">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#" style="font-size: 25px;padding-right: 25px;padding-left: 10px">CRM</a>
+			<img src="https://bind-crm-public.s3.eu-west-2.amazonaws.com/logo-light-1654586654vY8as.png"
+			     href="{% url "home" %}" id="logo">
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 			        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
 			        aria-expanded="false" aria-label="Toggle navigation">
