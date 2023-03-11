@@ -22,8 +22,8 @@
 					<div class="card-body">
 						<form method="POST">
 							{% csrf_token %}
-						{{ form_set.management_form_ }}
-							{% for field in form_set %}
+{#						{{ form_set.management_form_ }}#}
+							{% for field in form %}
 								<div class="form-group">
 									<label >{{ field.name }}</label>
 									{{ field }}

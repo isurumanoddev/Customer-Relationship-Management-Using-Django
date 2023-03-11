@@ -77,30 +77,30 @@ def user_register(request):
     return render(request, "register.html", context)
 
 
-# def create_order(request, pk):
-#     customer = Customer.objects.get(id=pk)
-#     form = OrderForm(initial={"customer":customer})
-#     if request.method == "POST":
-#         form = OrderForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect("customer" , pk =customer.id )
-#
-#     context = {"form": form}
-#     return render(request, "Order_form.html", context)
-
 def create_order(request, pk):
-    OrderFormSet = inlineformset_factory(Customer,Order,fields=("product","status"))
     customer = Customer.objects.get(id=pk)
-    form_set = OrderFormSet(instance=customer)
+    form = OrderForm(initial={"customer":customer})
     if request.method == "POST":
-        form_set = OrderFormSet(request.POST,instance=customer)
-        if form_set.is_valid():
-            form_set.save()
-            return redirect("home" )
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("customer" , pk =customer.id )
 
-    context = {"form_set": form_set}
+    context = {"form": form}
     return render(request, "Order_form.html", context)
+
+# def create_order(request, pk):
+#     OrderFormSet = inlineformset_factory(Customer,Order,fields=("product","status"))
+#     customer = Customer.objects.get(id=pk)
+#     form_set = OrderFormSet(queryset=Order.objects.none(),instance=customer)
+#     if request.method == "POST":
+#         form_set = OrderFormSet(request.POST,instance=customer)
+#         if form_set.is_valid():
+#             form_set.save()
+#             return redirect("/" )
+#
+#     context = {"form_set": form_set}
+#     return render(request, "Order_form.html", context)
 def update_order(request, pk):
     order = Order.objects.get(id=pk)
     form = OrderForm(instance=order)
@@ -108,7 +108,7 @@ def update_order(request, pk):
         form = OrderForm(request.POST, instance=order)
         if form.is_valid():
             form.save()
-            return redirect("home")
+            return redirect("customer", pk =order.customer.id )
 
     context = {"form": form}
     return render(request, "Order_form.html", context)
