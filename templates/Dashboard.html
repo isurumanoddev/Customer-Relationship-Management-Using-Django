@@ -27,9 +27,10 @@
 						</tr>
 						{% for customer in customers %}
 							<tr>
-								<td><a class="btn btn-outline-primary btn-sm" href="{% url "customer" customer.id %}">View</a></td>
+								<td><a class="btn btn-outline-primary btn-sm" href="{% url "customer" customer.id %}">View</a>
+								</td>
 								<td>{{ customer.name }}</td>
-								<td>{{ customer.phone}}</td>
+								<td>{{ customer.phone }}</td>
 							</tr>
 						{% endfor %}
 					</table>
@@ -51,10 +52,11 @@
 						{% for order in orders %}
 							<tr>
 								<td>{{ order.product }}</td>
-								<td>{{ order.date_created}}</td>
-								<td>{{ order.status}}</td>
-								<td><a class="btn btn-outline-info btn-sm" href="">Update</a> </td>
-								<td><a class="btn btn-outline-danger btn-sm" href="">Remove</a></td>
+								<td>{{ order.date_created }}</td>
+								<td>{{ order.status }}</td>
+								<td><a class="btn btn-outline-info btn-sm" href="{% url "update-order" order.id %}">Update</a>
+								</td>
+								<td><a class="btn btn-outline-danger btn-sm" href="{% url "delete-order" order.id %}">Remove</a></td>
 
 
 							</tr>
