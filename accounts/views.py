@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from accounts.models import *
+from accounts.forms import *
 
 
 # Create your views here.
@@ -20,11 +21,11 @@ def home(request):
     return render(request, "Dashboard.html", context)
 
 
-def customers(request,pk):
+def customers(request, pk):
     customer = Customer.objects.get(id=pk)
 
     orders = customer.order_set.all()
-    context = {"customer": customer,"orders":orders}
+    context = {"customer": customer, "orders": orders}
     return render(request, "Customers.html", context)
 
 
@@ -73,3 +74,15 @@ def user_register(request):
             return redirect("home")
     context = {"form": form}
     return render(request, "register.html", context)
+
+
+def create_order(request):
+    form = OrderForm()
+    if request.method == "POST":
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("home")
+
+    context = {"form": form}
+    return render(request, "Order_form.html", context)
