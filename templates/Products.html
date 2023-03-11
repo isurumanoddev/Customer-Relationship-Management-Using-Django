@@ -19,14 +19,22 @@
 				<h5 class="display-6">Products :</h5>
 
 
-				<div class="card card-body">
-					<table class="table table-sm">
+				<div class="card card-body" id="table">
+					<table class="table table-sm" >
 						<tr>
-							<th></th>
+
 							<th>Product</th>
 							<th>Category</th>
 							<th>Price</th>
 						</tr>
+						{% for product in products %}
+							<tr id="product-row">
+								<td>{{ product.name }}</td>
+								<td>{{ product.category }}</td>
+								<td>{{ product.price|floatformat:2 }}</td>
+							</tr>
+
+						{% endfor %}
 					</table>
 				</div>
 			</div>

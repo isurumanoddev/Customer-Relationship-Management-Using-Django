@@ -1,5 +1,5 @@
 body {
-    background-color: #f6f6f6;
+    background-color: #ebfde5;
 }
 
 #orders-pending {
@@ -18,6 +18,22 @@ body {
     width: 150px;
     height: 40px;
 
+}
+#table{
+    background-color: #77e098
+}
+#product-row {
+    /*background-color: #9999ec*/
+}
+
+#product-row:hover {
+    background-color: #f5ea2f;
+}
+
+#greet{
+    padding-left: 850px;
+    font-family: Cinzel, serif;
+    font-size: 18px;
 }
 
 .navbar a {
