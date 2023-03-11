@@ -21,11 +21,13 @@
 					<a class="btn btn-dark btn-sm btn-block m-1" href="">Create Customer</a>
 					<table class="table table-sm">
 						<tr>
+							<th></th>
 							<th>Customer</th>
 							<th>Phone</th>
 						</tr>
 						{% for customer in customers %}
 							<tr>
+								<td><a class="btn btn-outline-primary btn-sm" href="{% url "customer" customer.id %}">View</a></td>
 								<td>{{ customer.name }}</td>
 								<td>{{ customer.phone}}</td>
 							</tr>
@@ -51,7 +53,7 @@
 								<td>{{ order.product }}</td>
 								<td>{{ order.date_created}}</td>
 								<td>{{ order.status}}</td>
-								<td><a class="btn btn-outline-success btn-sm" href="">Update</a> </td>
+								<td><a class="btn btn-outline-info btn-sm" href="">Update</a> </td>
 								<td><a class="btn btn-outline-danger btn-sm" href="">Remove</a></td>
 
 
