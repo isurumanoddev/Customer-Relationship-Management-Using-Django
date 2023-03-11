@@ -1,5 +1,6 @@
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.forms import UserCreationForm
+from django.forms import inlineformset_factory
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -76,18 +77,30 @@ def user_register(request):
     return render(request, "register.html", context)
 
 
-def create_order(request):
-    form = OrderForm()
+# def create_order(request, pk):
+#     customer = Customer.objects.get(id=pk)
+#     form = OrderForm(initial={"customer":customer})
+#     if request.method == "POST":
+#         form = OrderForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect("customer" , pk =customer.id )
+#
+#     context = {"form": form}
+#     return render(request, "Order_form.html", context)
+
+def create_order(request, pk):
+    OrderFormSet = inlineformset_factory(Customer,Order,fields=("product","status"))
+    customer = Customer.objects.get(id=pk)
+    form_set = OrderFormSet(instance=customer)
     if request.method == "POST":
-        form = OrderForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("home")
+        form_set = OrderFormSet(request.POST,instance=customer)
+        if form_set.is_valid():
+            form_set.save()
+            return redirect("home" )
 
-    context = {"form": form}
+    context = {"form_set": form_set}
     return render(request, "Order_form.html", context)
-
-
 def update_order(request, pk):
     order = Order.objects.get(id=pk)
     form = OrderForm(instance=order)
@@ -106,4 +119,43 @@ def delete_order(request, pk):
 
     if request.method == "POST":
         order.delete()
-    return redirect("home")
+        return redirect("home")
+
+    context = {"object": order}
+    return render(request, "delete.html", context)
+
+
+def create_customer(request):
+    form = CustomerForm()
+    if request.method == "POST":
+        form = CustomerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("home")
+
+    context = {"form": form}
+    return render(request, "Customer_form.html", context)
+
+
+def update_customer(request, pk):
+    customer = Customer.objects.get(id=pk)
+    form = CustomerForm(instance=customer)
+    if request.method == "POST":
+        form = CustomerForm(request.POST, instance=customer)
+        if form.is_valid():
+            form.save()
+            return redirect("home")
+
+    context = {"form": form, "customer": customer}
+    return render(request, "Customer_form.html", context)
+
+
+def delete_customer(request, pk):
+    customer = Customer.objects.get(id=pk)
+
+    if request.method == "POST":
+        customer.delete()
+        return redirect("home")
+
+    context = {"object": customer}
+    return render(request, "delete.html", context)

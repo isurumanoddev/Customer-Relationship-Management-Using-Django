@@ -19,10 +19,10 @@
 						<h5 class="card-title">Customer</h5>
 						<hr/>
 						<div class="row my-1">
-							<button class="btn btn-outline-info btn-sm " href="" style="">Update Customer</button>
+							<a class="btn btn-outline-info btn-sm " href="{% url "update-customer" customer.id %}" style="">Update Customer</a>
 						</div>
 						<div class="row my-1">
-							<button class="btn btn-outline-danger btn-sm " href="">Delete Customer</button>
+							<a class="btn btn-outline-warning btn-sm " href="{% url "create-order" customer.id %}">Place Order</a>
 						</div>
 					</div>
 

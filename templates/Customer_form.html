@@ -17,19 +17,18 @@
 			<div class="col-sm-4 col-md-6 col-lg-6 mt-3">
 				<div class="card">
 					<div class="card-header">
-						<h4>Create Order</h4>
+						<h4>Create Customer</h4>
 					</div>
 					<div class="card-body">
 						<form method="POST">
 							{% csrf_token %}
-						{{ form_set.management_form_ }}
-							{% for field in form_set %}
+							{% for field in form %}
 								<div class="form-group">
 									<label >{{ field.name }}</label>
 									{{ field }}
 								</div>
 							{% endfor %}
-							<button type="submit" class="btn btn-primary btn-block mt-3">Create Order</button>
+							<button type="submit" class="btn btn-primary btn-block mt-3">Create Customer</button>
 						</form>
 					</div>
 				</div>

@@ -17,21 +17,18 @@
 			<div class="col-sm-4 col-md-6 col-lg-6 mt-3">
 				<div class="card">
 					<div class="card-header">
-						<h4>Create Order</h4>
+						<h4>Delete Order</h4>
 					</div>
 					<div class="card-body">
-						<form method="POST">
+						<form method="POST" action="">
 							{% csrf_token %}
-						{{ form_set.management_form_ }}
-							{% for field in form_set %}
-								<div class="form-group">
-									<label >{{ field.name }}</label>
-									{{ field }}
-								</div>
-							{% endfor %}
-							<button type="submit" class="btn btn-primary btn-block mt-3">Create Order</button>
+							<p class="card-title">Are you sure ,you want to delete {{ object }} ?</p>
+							<a href="{% url "home" %}" class="btn btn-warning">Go Back </a>
+
+							<button type="submit" class="btn btn-success m-4 ">Delete</button>
 						</form>
 					</div>
+
 				</div>
 			</div>
 		</div>
