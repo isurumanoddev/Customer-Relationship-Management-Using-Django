@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from accounts.models import *
 from accounts.forms import *
-from accounts.filters import OrderFilter
+from accounts.filters import OrderFilter ,ProductFilter
 
 
 # Create your views here.
@@ -40,7 +40,8 @@ def customers(request, pk):
 def products(request):
     products = Product.objects.all()
 
-    context = {"products": products}
+    myFilter = ProductFilter()
+    context = {"products": products,"myFilter":myFilter}
 
     return render(request, "Products.html", context)
 

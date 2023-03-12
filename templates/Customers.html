@@ -58,7 +58,13 @@
 			<div class="col-md">
 				<div class="card card-body">
 					<form method="GET">
-						{{ myFilter.form }}
+						{% for field in myFilter.form %}
+							<div class="form-group">
+								<label>{{ field.label }}</label>
+
+								<input type="text" class="form-control form-control-sm" name="{{ field.name }}">
+							</div>
+						{% endfor %}
 						<button class="btn btn-success " type="submit">Search</button>
 					</form>
 				</div>
@@ -85,8 +91,10 @@
 								<td>{{ order.product.category }}</td>
 								<td>{{ order.date_created }}</td>
 								<td>{{ order.status }}</td>
-								<td><a class="btn btn-outline-success btn-sm" href="{% url "update-order" order.id %}">Update</a></td>
-								<td><a class="btn btn-outline-danger btn-sm" href="{% url "delete-order" order.id %}">Remove</a></td>
+								<td><a class="btn btn-outline-success btn-sm" href="{% url "update-order" order.id %}">Update</a>
+								</td>
+								<td><a class="btn btn-outline-danger btn-sm" href="{% url "delete-order" order.id %}">Remove</a>
+								</td>
 							</tr>
 						{% endfor %}
 					</table>
