@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from accounts.models import *
 from accounts.forms import *
-from accounts.filters import OrderFilter ,ProductFilter
+from accounts.filters import OrderFilter, ProductFilter
 
 
 # Create your views here.
@@ -28,21 +28,20 @@ def customers(request, pk):
 
     orders = customer.order_set.all()
 
-    myFilter = OrderFilter(request.GET,queryset=orders)
+    myFilter = OrderFilter(request.GET, queryset=orders)
     orders = myFilter.qs
     print(orders)
 
-
-    context = {"customer": customer, "orders": orders,"myFilter":myFilter}
+    context = {"customer": customer, "orders": orders, "myFilter": myFilter}
     return render(request, "Customers.html", context)
 
 
 def products(request):
     products = Product.objects.all()
 
-    myFilter = ProductFilter(request.GET,queryset=products)
-    products =myFilter.qs
-    context = {"products": products,"myFilter":myFilter}
+    myFilter = ProductFilter(request.GET, queryset=products)
+    products = myFilter.qs
+    context = {"products": products, "myFilter": myFilter}
 
     return render(request, "Products.html", context)
 
@@ -74,9 +73,9 @@ def user_logout(request):
 
 
 def user_register(request):
-    form = UserCreationForm()
+    form = CreateUserForm()
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = CreateUserForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.save()
@@ -88,15 +87,16 @@ def user_register(request):
 
 def create_order(request, pk):
     customer = Customer.objects.get(id=pk)
-    form = OrderForm(initial={"customer":customer})
+    form = OrderForm(initial={"customer": customer})
     if request.method == "POST":
         form = OrderForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("customer" , pk =customer.id )
+            return redirect("customer", pk=customer.id)
 
     context = {"form": form}
     return render(request, "Order_form.html", context)
+
 
 # def create_order(request, pk):
 #     OrderFormSet = inlineformset_factory(Customer,Order,fields=("product","status"))
@@ -117,7 +117,7 @@ def update_order(request, pk):
         form = OrderForm(request.POST, instance=order)
         if form.is_valid():
             form.save()
-            return redirect("customer", pk =order.customer.id )
+            return redirect("customer", pk=order.customer.id)
 
     context = {"form": form}
     return render(request, "Order_form.html", context)
