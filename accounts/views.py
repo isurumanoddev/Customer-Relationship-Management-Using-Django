@@ -40,7 +40,8 @@ def customers(request, pk):
 def products(request):
     products = Product.objects.all()
 
-    myFilter = ProductFilter()
+    myFilter = ProductFilter(request.GET,queryset=products)
+    products =myFilter.qs
     context = {"products": products,"myFilter":myFilter}
 
     return render(request, "Products.html", context)

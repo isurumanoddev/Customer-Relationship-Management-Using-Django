@@ -18,11 +18,27 @@
 				<div class="card card-body">
 					<form method="GET">
 						{% for field in myFilter.form %}
-						<div class="form-group">
-							<label >{{ field.label }}</label>
-							<input type="text" class="form-control form-control-sm" name="{{ field.name }}" >
-						</div>
+							<div class="form-group">
+								<label for="{{ field.name }}">{{ field.name }}</label>
+								{{ field }}
+							</div>
 						{% endfor %}
+
+
+
+						{#						<div class="form-group">#}
+						{#							<label for="name">category</label>#}
+						{#							<input required type="text" value="{{ myFilter.form.category.name }}" class="form-control" name="category" list="category-list">#}
+						{#							<datalist id="category-list">#}
+						{#								<select id="">#}
+						{#									{% for category in myFilter.form.category %}#}
+						{#										<option value="{{ category.name }}">{{ category.name }}</option>#}
+						{#									{% endfor %}#}
+						{##}
+						{#								</select>#}
+						{#							</datalist>#}
+						{#						</div>#}
+
 						<button class="btn btn-success " type="submit">Search</button>
 					</form>
 				</div>
