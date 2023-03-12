@@ -25,6 +25,7 @@ def home(request):
                "out_for_delevery": out_for_delevery, "pending": pending}
     return render(request, "Dashboard.html", context)
 
+
 @login_required(login_url="login")
 def customers(request, pk):
     customer = Customer.objects.get(id=pk)
@@ -37,6 +38,7 @@ def customers(request, pk):
 
     context = {"customer": customer, "orders": orders, "myFilter": myFilter}
     return render(request, "Customers.html", context)
+
 
 @login_required(login_url="login")
 def products(request):
@@ -90,6 +92,7 @@ def user_register(request):
     context = {"form": form}
     return render(request, "register.html", context)
 
+
 @login_required(login_url="login")
 def create_order(request, pk):
     customer = Customer.objects.get(id=pk)
@@ -129,6 +132,7 @@ def update_order(request, pk):
     context = {"form": form}
     return render(request, "Order_form.html", context)
 
+
 @login_required(login_url="login")
 def delete_order(request, pk):
     order = Order.objects.get(id=pk)
@@ -139,8 +143,9 @@ def delete_order(request, pk):
 
     context = {"object": order}
     return render(request, "delete.html", context)
-@login_required(login_url="login")
 
+
+@login_required(login_url="login")
 def create_customer(request):
     form = CustomerForm()
     if request.method == "POST":
@@ -151,6 +156,7 @@ def create_customer(request):
 
     context = {"form": form}
     return render(request, "Customer_form.html", context)
+
 
 @login_required(login_url="login")
 def update_customer(request, pk):
@@ -165,13 +171,18 @@ def update_customer(request, pk):
     context = {"form": form, "customer": customer}
     return render(request, "Customer_form.html", context)
 
+
 @login_required(login_url="login")
 def delete_customer(request, pk):
     customer = Customer.objects.get(id=pk)
-
     if request.method == "POST":
         customer.delete()
         return redirect("home")
 
     context = {"object": customer}
     return render(request, "delete.html", context)
+
+
+def user_page(request):
+    context = {}
+    return render(request, "User.html",context)
