@@ -13,6 +13,9 @@
 	{% include "status.html" %}
 
 	<div class="container-fluid">
+	{% for message in messages %}
+		<p class="display-6">{{ message }}</p>
+	{% endfor %}
 		<div class="row">
 			<div class="col-md-5">
 				<h5 class="display-6">Customers :</h5>

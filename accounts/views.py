@@ -7,9 +7,12 @@ from django.http import HttpResponse
 from accounts.models import *
 from accounts.forms import *
 from accounts.filters import OrderFilter, ProductFilter
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+@login_required(login_url="login")
 def home(request):
     orders = Order.objects.all()
     customers = Customer.objects.all()
@@ -22,7 +25,7 @@ def home(request):
                "out_for_delevery": out_for_delevery, "pending": pending}
     return render(request, "Dashboard.html", context)
 
-
+@login_required(login_url="login")
 def customers(request, pk):
     customer = Customer.objects.get(id=pk)
 
@@ -35,7 +38,7 @@ def customers(request, pk):
     context = {"customer": customer, "orders": orders, "myFilter": myFilter}
     return render(request, "Customers.html", context)
 
-
+@login_required(login_url="login")
 def products(request):
     products = Product.objects.all()
 
@@ -61,7 +64,7 @@ def user_login(request):
             login(request, user)
             return redirect("home")
         else:
-            return HttpResponse("<h1>Username or password incorrect</h1>")
+            messages.info(request, "Username or password incorrect")
 
     context = {}
     return render(request, "login.html", context)
@@ -80,11 +83,14 @@ def user_register(request):
             user = form.save(commit=False)
             user.save()
             login(request, user)
+            username = form.cleaned_data.get("username")
+            messages.success(request, f"Account was created for {username} ")
             return redirect("home")
+
     context = {"form": form}
     return render(request, "register.html", context)
 
-
+@login_required(login_url="login")
 def create_order(request, pk):
     customer = Customer.objects.get(id=pk)
     form = OrderForm(initial={"customer": customer})
@@ -110,6 +116,7 @@ def create_order(request, pk):
 #
 #     context = {"form_set": form_set}
 #     return render(request, "Order_form.html", context)
+@login_required(login_url="login")
 def update_order(request, pk):
     order = Order.objects.get(id=pk)
     form = OrderForm(instance=order)
@@ -122,7 +129,7 @@ def update_order(request, pk):
     context = {"form": form}
     return render(request, "Order_form.html", context)
 
-
+@login_required(login_url="login")
 def delete_order(request, pk):
     order = Order.objects.get(id=pk)
 
@@ -132,7 +139,7 @@ def delete_order(request, pk):
 
     context = {"object": order}
     return render(request, "delete.html", context)
-
+@login_required(login_url="login")
 
 def create_customer(request):
     form = CustomerForm()
@@ -145,7 +152,7 @@ def create_customer(request):
     context = {"form": form}
     return render(request, "Customer_form.html", context)
 
-
+@login_required(login_url="login")
 def update_customer(request, pk):
     customer = Customer.objects.get(id=pk)
     form = CustomerForm(instance=customer)
@@ -158,7 +165,7 @@ def update_customer(request, pk):
     context = {"form": form, "customer": customer}
     return render(request, "Customer_form.html", context)
 
-
+@login_required(login_url="login")
 def delete_customer(request, pk):
     customer = Customer.objects.get(id=pk)
 

@@ -54,9 +54,13 @@
 								<input type="checkbox" class="form-check-input" id="remember">
 								<label class="form-check-label" for="remember">Remember me</label>
 							</div>
+							{% for message in messages %}
+								<p class="card-title">{{ message }}</p>
+							{% endfor %}
 							<button type="submit" class="btn btn-primary btn-block mt-3">Login</button>
 							<div class="text-center mt-3">
-								<p>Don't have an account? <a href="{% url "register" %}" class="btn btn-link">Sign Up</a></p>
+								<p>Don't have an account? <a href="{% url "register" %}" class="btn btn-link">Sign
+									Up</a></p>
 							</div>
 						</form>
 					</div>
