@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from accounts.models import *
+from accounts.decorators import *
 from accounts.forms import *
 from accounts.filters import OrderFilter, ProductFilter
 from django.contrib import messages
@@ -22,7 +23,7 @@ def home(request):
     out_for_delevery = orders.filter(status="Out For Delivery").count()
 
     context = {"customers": customers, "orders": orders, "total_orders": total_orders, "delivered": delivered,
-               "out_for_delevery": out_for_delevery, "pending": pending}
+               "out_for_delivery": out_for_delevery, "pending": pending}
     return render(request, "Dashboard.html", context)
 
 
@@ -50,8 +51,9 @@ def products(request):
 
     return render(request, "Products.html", context)
 
-
+@unauthenticated_user
 def user_login(request):
+
     if request.method == "POST":
         username = request.POST.get("name")
         password = request.POST.get("password")
