@@ -10,11 +10,12 @@ from accounts.forms import *
 from accounts.filters import OrderFilter, ProductFilter
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
 
 
 # Create your views here.
 @login_required(login_url="login")
-@allowed_user(["admin"])
+@admin_only
 def home(request):
     orders = Order.objects.all()
     customers = Customer.objects.all()
@@ -43,6 +44,7 @@ def customers(request, pk):
 
 
 @login_required(login_url="login")
+@allowed_user(["admin"])
 def products(request):
     products = Product.objects.all()
 
@@ -87,6 +89,11 @@ def user_register(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.save()
+
+            customer_group = Group.objects.get(name="customers")
+            print(customer_group)
+            user.groups.add(customer_group)
+
             login(request, user)
             username = form.cleaned_data.get("username")
             messages.success(request, f"Account was created for {username} ")
@@ -97,6 +104,7 @@ def user_register(request):
 
 
 @login_required(login_url="login")
+@allowed_user(["admin"])
 def create_order(request, pk):
     customer = Customer.objects.get(id=pk)
     form = OrderForm(initial={"customer": customer})
@@ -110,19 +118,9 @@ def create_order(request, pk):
     return render(request, "Order_form.html", context)
 
 
-# def create_order(request, pk):
-#     OrderFormSet = inlineformset_factory(Customer,Order,fields=("product","status"))
-#     customer = Customer.objects.get(id=pk)
-#     form_set = OrderFormSet(queryset=Order.objects.none(),instance=customer)
-#     if request.method == "POST":
-#         form_set = OrderFormSet(request.POST,instance=customer)
-#         if form_set.is_valid():
-#             form_set.save()
-#             return redirect("/" )
-#
-#     context = {"form_set": form_set}
-#     return render(request, "Order_form.html", context)
+
 @login_required(login_url="login")
+@allowed_user(["admin"])
 def update_order(request, pk):
     order = Order.objects.get(id=pk)
     form = OrderForm(instance=order)
@@ -137,6 +135,7 @@ def update_order(request, pk):
 
 
 @login_required(login_url="login")
+@allowed_user(["admin"])
 def delete_order(request, pk):
     order = Order.objects.get(id=pk)
 
@@ -149,6 +148,7 @@ def delete_order(request, pk):
 
 
 @login_required(login_url="login")
+@allowed_user(["admin"])
 def create_customer(request):
     form = CustomerForm()
     if request.method == "POST":
@@ -162,6 +162,7 @@ def create_customer(request):
 
 
 @login_required(login_url="login")
+@allowed_user(["admin"])
 def update_customer(request, pk):
     customer = Customer.objects.get(id=pk)
     form = CustomerForm(instance=customer)
@@ -176,6 +177,7 @@ def update_customer(request, pk):
 
 
 @login_required(login_url="login")
+@allowed_user(["admin"])
 def delete_customer(request, pk):
     customer = Customer.objects.get(id=pk)
     if request.method == "POST":

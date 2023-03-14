@@ -26,8 +26,20 @@ def allowed_user(allowed_roles=[]):
             else:
                 return HttpResponse("<h1>user Not allowed </h1>")
 
-
-
         return wrapper_func
 
     return decorator
+
+
+def admin_only(view_func):
+    def wrapper_func(request, *args, **kwargs):
+        group = None
+        if request.user.groups.exists():
+            group = request.user.groups.all()[0].name
+            print(group)
+        if group == "customers":
+            return redirect("user-page")
+        elif group == "admin":
+            return view_func(request, *args, **kwargs)
+
+    return wrapper_func
