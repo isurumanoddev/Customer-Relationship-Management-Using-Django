@@ -91,10 +91,16 @@ def user_register(request):
             user.save()
 
             customer_group = Group.objects.get(name="customers")
-            print(customer_group)
             user.groups.add(customer_group)
 
             login(request, user)
+            Customer.objects.create(
+                user = user,
+                name=request.POST.get("username"),
+                phone =request.POST.get("phone_number"),
+                email=request.POST.get("email"),
+            )
+
             username = form.cleaned_data.get("username")
             messages.success(request, f"Account was created for {username} ")
             return redirect("home")
