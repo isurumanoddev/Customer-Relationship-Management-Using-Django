@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 @login_required(login_url="login")
+@allowed_user(["admin"])
 def home(request):
     orders = Order.objects.all()
     customers = Customer.objects.all()
@@ -51,9 +52,9 @@ def products(request):
 
     return render(request, "Products.html", context)
 
+
 @unauthenticated_user
 def user_login(request):
-
     if request.method == "POST":
         username = request.POST.get("name")
         password = request.POST.get("password")
@@ -187,4 +188,4 @@ def delete_customer(request, pk):
 
 def user_page(request):
     context = {}
-    return render(request, "User.html",context)
+    return render(request, "User.html", context)
