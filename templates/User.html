@@ -11,21 +11,45 @@
 
 {% block content %}
 	<br>
-
+	{% include "status.html" %}
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md">
+			<div class="col-md-4">
 				<h1 class="display-1 text-warning">User Page</h1>
 				<br>
 				<br>
 				<br>
 				<h1 class="display-4 text-warning">Hello {{ request.user.username }}</h1>
 			</div>
+			<div class="col-md-8">
+				<h5 class="display-6">Last 5 Orders :</h5>
+				<hr/>
+				<div class="card card-body">
+					<a class="btn btn-dark btn-sm btn-block m-1" href="">Create Order</a>
+					<table class="table table-sm">
+						<tr>
+							<th>Product</th>
+							<th>Date Ordered</th>
+							<th>Status</th>
 
+						</tr>
+						{% for order in orders %}
+							<tr>
+								<td>{{ order.product }}</td>
+								<td>{{ order.date_created }}</td>
+								<td>{{ order.status }}</td>
 
+							</tr>
+						{% endfor %}
+
+					</table>
+				</div>
+			</div>
 		</div>
-
 	</div>
+
+
+
 
 
 

@@ -95,9 +95,9 @@ def user_register(request):
 
             login(request, user)
             Customer.objects.create(
-                user = user,
+                user=user,
                 name=request.POST.get("username"),
-                phone =request.POST.get("phone_number"),
+                phone=request.POST.get("phone_number"),
                 email=request.POST.get("email"),
             )
 
@@ -122,7 +122,6 @@ def create_order(request, pk):
 
     context = {"form": form}
     return render(request, "Order_form.html", context)
-
 
 
 @login_required(login_url="login")
@@ -194,6 +193,9 @@ def delete_customer(request, pk):
     return render(request, "delete.html", context)
 
 
+
 def user_page(request):
-    context = {}
+    orders =request.user.customer.order_set.all()
+    print("orders ",orders)
+    context = {"orders":orders}
     return render(request, "User.html", context)
