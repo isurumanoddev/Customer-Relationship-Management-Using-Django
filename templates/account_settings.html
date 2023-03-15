@@ -6,11 +6,11 @@
 	<meta charset="UTF-8">
 	<title>Title</title>
 	<style>
-		.profile-pic {
-            max-width: 100px;
+        .profile-pic {
+            max-width: 500px;
             max-height: 200px;
             margin: 0 auto;
-			border-radius: 50%;
+            border-radius: 50%;
         }
 	</style>
 </head>
@@ -22,13 +22,16 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-3">
-				<div class="card card-body" >
-					<a class="btn btn-warning btn-sm btn-block m-1" href="{% url "user-page" %}">&#8592; Back To Profile</a>
+				<div class="card card-body">
+					<a class="btn btn-warning btn-sm btn-block m-1" href="{% url "user-page" %}">&#8592; Back To
+						Profile</a>
 					<hr/>
 					<h3 style="text-align: center">Account Settings</h3>
 					<hr/>
-					<img class="profile-pic" src="https://media1.popsugar-assets.com/files/thumbor/5pXn5PVg4YsDlmvP_ZJSFti_oIg/0x81:2204x2285/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2020/04/20/759/n/1922398/ef96da145e9dd82e16fcd7.66367729_/i/Amber-Heard.jpg">
-
+					{#					<img class="profile-pic" src="https://m.media-amazon.com/images/M/MV5BMTM3OTUwMDYwNl5BMl5BanBnXkFtZTcwNTUyNzc3Nw@@._V1_FMjpg_UX1000_.jpg">#}
+					<img class="profile-pic"
+					     src="{{ user.imageURL }}">
+					<h1>{{ user.name }}</h1>
 
 
 				</div>
@@ -37,7 +40,8 @@
 			<div class="col-md-9">
 				<div class="card card-body">
 					<form method="POST" action="">
-{{ form.as_p }}
+						{% csrf_token %}
+						{{ form.as_p }}
 						<input class="btn btn-primary" type="submit" name="update-profile">
 
 					</form>

@@ -196,25 +196,26 @@ def delete_customer(request, pk):
 @login_required(login_url="login")
 @allowed_user(["customers"])
 def user_page(request):
-    orders =request.user.customer.order_set.all()
+    customer = request.user.customer
+    orders = customer.order_set.all()
     total_orders = orders.count()
     delivered = orders.filter(status="Delivered").count()
     pending = orders.filter(status="Pending").count()
     out_for_delevery = orders.filter(status="Out For Delivery").count()
-    context = {"orders":orders,"total_orders": total_orders, "delivered": delivered,
+    context = {"customer": customer, "orders": orders, "total_orders": total_orders, "delivered": delivered,
                "out_for_delivery": out_for_delevery, "pending": pending}
     return render(request, "User.html", context)
 
 
 @login_required(login_url="login")
-@allowed_user(["customers"])
-def account_settings(request,pk):
-    user = User.objects.get(id=pk)
+
+def account_settings(request):
+    user = request.user.customer
     form = CustomerForm(instance=user)
     if request.method == "POST":
         form = CustomerForm(request.POST,instance=user)
         if form.is_valid():
             form.save()
-            return redirect("settings-page" ,pk=user.id )
-    context = {"user":user,"form":form}
+            return redirect("user-page")
+    context = {"user":user, "form": form}
     return render(request, "account_settings.html", context)

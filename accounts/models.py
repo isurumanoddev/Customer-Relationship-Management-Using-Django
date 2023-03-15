@@ -18,7 +18,7 @@ class Customer(models.Model):
             url = self.profile_pic.url
         except:
             url = ""
-
+        return url
 
 class Tag(models.Model):
     name = models.CharField(max_length=200, null=True)
