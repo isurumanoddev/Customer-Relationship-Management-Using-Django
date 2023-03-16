@@ -7,8 +7,8 @@
 	<title>Title</title>
 	<style>
         .profile-pic {
-            max-width: 500px;
-            max-height: 200px;
+            width: 500px;
+            height: 100px;
             margin: 0 auto;
             border-radius: 50%;
         }
@@ -29,7 +29,7 @@
 					<h3 style="text-align: center">Account Settings</h3>
 					<hr/>
 					{#					<img class="profile-pic" src="https://m.media-amazon.com/images/M/MV5BMTM3OTUwMDYwNl5BMl5BanBnXkFtZTcwNTUyNzc3Nw@@._V1_FMjpg_UX1000_.jpg">#}
-					<img class="profile-pic"
+					<img class="profile-pic" style="max-width: 200px;max-height: 200px;margin: 0 auto;border-radius: 50%;"
 					     src="{{ user.imageURL }}">
 					<h1>{{ user.name }}</h1>
 
@@ -39,7 +39,7 @@
 			</div>
 			<div class="col-md-9">
 				<div class="card card-body">
-					<form method="POST" action="">
+					<form method="POST" action="" enctype="multipart/form-data">
 						{% csrf_token %}
 						{{ form.as_p }}
 						<input class="btn btn-primary" type="submit" name="update-profile">

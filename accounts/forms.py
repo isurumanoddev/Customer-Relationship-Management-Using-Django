@@ -18,10 +18,10 @@ class CustomerForm(ModelForm):
 
 
 class CreateUserForm(UserCreationForm):
-    phone_number = forms.CharField(label="phone_number", max_length=10)
+    # phone_number = forms.CharField(label="phone_number", max_length=10)
     class Meta:
         model = User
-        fields = ["username","email","password1","password2","phone_number"]
+        fields = ["username","email","password1","password2"]
 
 
 

@@ -96,9 +96,7 @@ def user_register(request):
             login(request, user)
             Customer.objects.create(
                 user=user,
-                name=request.POST.get("username"),
-                phone=request.POST.get("phone_number"),
-                email=request.POST.get("email"),
+
             )
 
             username = form.cleaned_data.get("username")
@@ -208,14 +206,13 @@ def user_page(request):
 
 
 @login_required(login_url="login")
-
 def account_settings(request):
     user = request.user.customer
     form = CustomerForm(instance=user)
     if request.method == "POST":
-        form = CustomerForm(request.POST,instance=user)
+        form = CustomerForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
-            return redirect("user-page")
-    context = {"user":user, "form": form}
+            return redirect("settings-page")
+    context = {"user": user, "form": form}
     return render(request, "account_settings.html", context)
