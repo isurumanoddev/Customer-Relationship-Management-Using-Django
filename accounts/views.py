@@ -90,14 +90,16 @@ def user_register(request):
             user = form.save(commit=False)
             user.save()
 
-            customer_group = Group.objects.get(name="customers")
-            user.groups.add(customer_group)
+            # customer_group = Group.objects.get(name="customers")
+            # user.groups.add(customer_group)
 
             login(request, user)
-            Customer.objects.create(
-                user=user,
-
-            )
+            # Customer.objects.create(
+            #     user=user,
+            #     name=user.username,
+            #     email=user.email,
+            #
+            # )
 
             username = form.cleaned_data.get("username")
             messages.success(request, f"Account was created for {username} ")
