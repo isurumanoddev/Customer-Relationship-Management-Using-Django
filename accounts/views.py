@@ -13,6 +13,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 
 
+from django.conf import settings
+from django.core.mail import send_mail
 # Create your views here.
 @login_required(login_url="login")
 @admin_only
@@ -89,17 +91,13 @@ def user_register(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.save()
-
-            # customer_group = Group.objects.get(name="customers")
-            # user.groups.add(customer_group)
-
             login(request, user)
-            # Customer.objects.create(
-            #     user=user,
-            #     name=user.username,
-            #     email=user.email,
-            #
-            # )
+
+            subject = 'welcome to GFG world'
+            message = f'Hi {user.username}, thank you for registering in geeksforgeeks.'
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = ["webdevisuru@gmail.com"]
+            send_mail(subject, message, email_from, recipient_list)
 
             username = form.cleaned_data.get("username")
             messages.success(request, f"Account was created for {username} ")

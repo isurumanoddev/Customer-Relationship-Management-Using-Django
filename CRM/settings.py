@@ -17,7 +17,6 @@ from django.conf.global_settings import EMAIL_USE_TLS, EMAIL_HOST_PASSWORD
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -28,7 +27,6 @@ SECRET_KEY = 'django-insecure-mg_$vk8c^0vt8_1a-e(l#(^!p+fz+^f3l$33&bobc%+5jpkv9@
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -74,7 +72,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'CRM.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -84,7 +81,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -104,7 +100,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -116,33 +111,28 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR/"static"]
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 MEDIA_URL = "/images/"
 
-
-MEDIA_ROOT = os.path.join(BASE_DIR,"static/images/profile_pic")
+MEDIA_ROOT = os.path.join(BASE_DIR, "static/images/profile_pic")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-if not DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_PORT = 587
-    EMAIL_USE_TLS = True
-    EMAIL_HOST_USER = "webdevisuru@gmail.com"
-    EMAIL_HOST_PASSWORD = "Isuru@718"
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'isurumanoddev@gmail.com'
+EMAIL_HOST_PASSWORD = 'zwvpleidsumzdtmu'
 
 
-else:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# print(EMAIL_BACKEND)
