@@ -9,7 +9,7 @@ def create_profile(sender,instance,created,**kwargs):
         instance.groups.add(group)
         Customer.objects.create(
             user=instance,
-            # name=request.POST.get("username"),
-            # phone=request.POST.get("phone_number"),
-            # email=request.POST.get("email"),
+            name=request.POST.get("username"),
+            phone=request.POST.get("phone_number"),
+            email=request.POST.get("email"),
         )
