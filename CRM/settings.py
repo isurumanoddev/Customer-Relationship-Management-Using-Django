@@ -141,5 +141,8 @@ if not DEBUG:
     EMAIL_HOST_USER = "webdevisuru@gmail.com"
     EMAIL_HOST_PASSWORD = "Isuru@718"
 
+
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
